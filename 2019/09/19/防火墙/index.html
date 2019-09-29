@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="防火墙部分（1)FW1 配置 trust,untrust，dmz 区域和相应策略； trust 区域内放行所有方向、所有 类型的流量。 untrust 区域内放行所有方向、所有类型的流量。 trust 与 untrust 区域间放行所有方向、所有类型的流量。   E0/1、E0/2 属于 trust 区域，在以上接口下配置相 关命令使其可以通过 ping 命令进行测试并且可以通过网页 登录设备。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blog">
+<meta property="og:url" content="http://yoursite.com/2019/09/19/防火墙/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="防火墙部分（1)FW1 配置 trust,untrust，dmz 区域和相应策略； trust 区域内放行所有方向、所有 类型的流量。 untrust 区域内放行所有方向、所有类型的流量。 trust 与 untrust 区域间放行所有方向、所有类型的流量。   E0/1、E0/2 属于 trust 区域，在以上接口下配置相 关命令使其可以通过 ping 命令进行测试并且可以通过网页 登录设备。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/1.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/2.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/3.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/4.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/5.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B73.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B74.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B75.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B76.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B77.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B78.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B79.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B7.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B72.PNG">
+<meta property="og:updated_time" content="2019-09-19T07:50:00.985Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blog">
+<meta name="twitter:description" content="防火墙部分（1)FW1 配置 trust,untrust，dmz 区域和相应策略； trust 区域内放行所有方向、所有 类型的流量。 untrust 区域内放行所有方向、所有类型的流量。 trust 与 untrust 区域间放行所有方向、所有类型的流量。   E0/1、E0/2 属于 trust 区域，在以上接口下配置相 关命令使其可以通过 ping 命令进行测试并且可以通过网页 登录设备。">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/19/防火墙/yu%20%E5%9B%BE%E7%89%87/1/1.PNG">
+  
+    <link rel="alternate" href="/atom.xml" title="Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-防火墙" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/19/防火墙/" class="article-date">
+  <time datetime="2019-09-19T07:48:32.578Z" itemprop="datePublished">2019-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="防火墙部分"><a href="#防火墙部分" class="headerlink" title="防火墙部分"></a>防火墙部分</h2><h3 id="（1-FW1-配置-trust-untrust，dmz-区域和相应策略；"><a href="#（1-FW1-配置-trust-untrust，dmz-区域和相应策略；" class="headerlink" title="（1)FW1 配置 trust,untrust，dmz 区域和相应策略；"></a>（1)FW1 配置 trust,untrust，dmz 区域和相应策略；</h3><p> trust 区域内放行所有方向、所有 类型的流量。<br> untrust 区域内放行所有方向、所有类型的流量。<br> trust 与 untrust 区域间放行所有方向、所有类型的流量。</p>
+<ul>
+<li><p><img src="yu%20%E5%9B%BE%E7%89%87/1/1.PNG" alt></p>
+<p>E0/1、E0/2 属于 trust 区域，在以上接口下配置相 关命令使其可以通过 ping 命令进行测试并且可以通过网页 登录设备。</p>
+</li>
+<li><p><img src="yu%20%E5%9B%BE%E7%89%87/1/2.PNG" alt></p>
+<p>E0/3、E0/4 属于 untrust 区域，在以上接口下配置 相关命令使其可以通过 ping 命令进行测试并且可以通过网 页登录设备。</p>
+</li>
+<li><p><img src="yu%20%E5%9B%BE%E7%89%87/1/3.PNG" alt></p>
+</li>
+</ul>
+<h3 id="（2-FW1-攻击防护-启以下-Flood-防护："><a href="#（2-FW1-攻击防护-启以下-Flood-防护：" class="headerlink" title="（2)FW1 攻击防护 启以下 Flood 防护："></a>（2)FW1 攻击防护 启以下 Flood 防护：</h3><p> ICMP 洪水攻击防护，警戒值 1000，动作丢弃；<br> UDP 供水攻击防护，警戒值 1000，动作丢弃；<br> SYN 洪水攻击防护，警戒值 1000，动作丢弃；<br>  开启以下 DOS 防护： Ping of Death 攻击防护；<br> Teardrop 攻击防护； IP 选项，动作丢弃；<br> ICMP 大包攻击防护，动作丢弃；</p>
+<ul>
+<li><img src="yu%20%E5%9B%BE%E7%89%87/1/4.PNG" alt><br><img src="yu%20%E5%9B%BE%E7%89%87/1/5.PNG" alt></li>
+</ul>
+<h3 id="（3-配置-SSL-VPN，使外网用户通过-ISP-可以拨入连接总结服务器区域；"><a href="#（3-配置-SSL-VPN，使外网用户通过-ISP-可以拨入连接总结服务器区域；" class="headerlink" title="（3)配置 SSL VPN，使外网用户通过 ISP 可以拨入连接总结服务器区域；"></a>（3)配置 SSL VPN，使外网用户通过 ISP 可以拨入连接总结服务器区域；</h3><p>用户名：user1 密码 user1 下发地址范围：10.10.10.10-20</p>
+<ul>
+<li>新建用户<br><img src="yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B73.PNG" alt="捕获3"></li>
+<li>开始建立SSL VPN<br><img src="yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B74.PNG" alt="捕获4"></li>
+<li>隧道入口<br><img src="yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B75.PNG" alt="捕获5"><br><img src="yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B76.PNG" alt="捕获6"></li>
+<li>配置地址池<br><img src="yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B77.PNG" alt="捕获7"><br><img src="yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B78.PNG" alt="捕获8"></li>
+<li>添加隧道路由<br><img src="yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B79.PNG" alt="捕获9"></li>
+<li>接口配置<br><img src="yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B7.PNG" alt="捕获"></li>
+<li>客户端验证<br><img src="yu%20%E5%9B%BE%E7%89%87/1/%E6%8D%95%E8%8E%B72.PNG" alt="捕获2"></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/19/防火墙/" data-id="ck154mlps0001p0tkamly8256" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/18/无线/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/19/防火墙/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/18/无线/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/07/安全/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 晁誉<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
